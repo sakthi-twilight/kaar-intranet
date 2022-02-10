@@ -1,0 +1,29 @@
+version: '3'
+services:
+  testwordpress:
+    image: wordpress
+    container_name: testwordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - WORDPRESS_DB_HOST=$MYSQL_HOST:$MYSQL_PORT
+      - WORDPRESS_DB_USER=$MYSQL_TEST_USER
+      - WORDPRESS_DB_PASSWORD=$MYSQL_TEST_PASSWORD
+      - WORDPRESS_DB_NAME=$MYSQL_TEST_DB
+    volumes:
+      - /wordpress/test:/var/www/html
+
+  prodwordpress:
+    image: wordpress
+    container_name: prodwordpress
+    restart: always
+    ports:
+      - 8085:80
+    environment:
+      - WORDPRESS_DB_HOST=$MYSQL_HOST:$MYSQL_PORT
+      - WORDPRESS_DB_USER=$MYSQL_PROD_USER
+      - WORDPRESS_DB_PASSWORD=$MYSQL_PROD_PASSWORD
+      - WORDPRESS_DB_NAME=$MYSQL_PROD_DB
+    volumes:
+      - /wordpress/prod:/var/www/html/wp-content
